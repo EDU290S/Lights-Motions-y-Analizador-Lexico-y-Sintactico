@@ -43,3 +43,15 @@ Aqui se trabajara el BNF de nuestro lenguaje.
 			<Entero> ::- <digito> | <entero><digito>
 			<digito> ::- 0|1|2|3|4|5|6|7|8|9
 			<Simbolo de grado> ::- °
+
+<Numerofloat>   ::=  Puntofloat | ° | <Luces>
+
+    <Puntofloat> ::=  [inpar] fraccion | impar "."
+      
+       <Exponentefloat> ::=  (inpar | Puntofloat) °
+    
+    <inpar> ::=  digito+
+   
+    <fraccion> ::=  "." digito+
+       
+<exponente> ::=  ("a....z" | "A....Z") ["+" | "-"] digito+
