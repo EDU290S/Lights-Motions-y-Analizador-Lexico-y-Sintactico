@@ -49,8 +49,8 @@ Aqui se trabajara el BNF de nuestro lenguaje.
     <PuntoFloat> ::=  [impar] fraccion | impar "."
        <GradoFloat> ::=  (impar | PuntoFloat) °
     
-    <inpar> ::=  <digito> | <GradoFloat><digito>
-    <inpar> ::=  <instruccion> | <ciclo> | <decision> | <instruccion> <Bloque instruccion> | <ciclo> <Bloque instruccion> | <decision> <Bloque instruccion>
+    <impar> ::=  <digito> | <GradoFloat><digito>
+    <impar> ::=  <instruccion> | <ciclo> | <decision> | <instruccion> <Bloque instruccion> | <ciclo> <Bloque instruccion> | <decision> <Bloque instruccion>
 
 -------------------------------------------------------------------------------------
 
