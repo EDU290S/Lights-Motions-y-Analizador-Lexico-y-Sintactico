@@ -44,19 +44,13 @@ Aqui se trabajara el BNF de nuestro lenguaje.
 			<digito> ::- 0|1|2|3|4|5|6|7|8|9
 			<Simbolo de grado> ::- °
 
-<Numerofloat>   ::=  Puntofloat | ° | <Luces>
+<NumeroFloat>   ::=  PuntoFloat | ° | <Luces>
 
-    <Puntofloat> ::=  [inpar] fraccion | impar "."
-      
-       <Exponentefloat> ::=  (inpar | Puntofloat) °
+    <PuntoFloat> ::=  [impar] fraccion | impar "."
+       <GradoFloat> ::=  (impar | PuntoFloat) °
     
-    <inpar> ::=  digito+
-   
-    <fraccion> ::=  "." digito+
-       
-<exponente> ::=  ("a....z" | "A....Z") ["+" | "-"] digito+
-
-
+    <inpar> ::=  <digito> | <GradoFloat><digito>
+    <inpar> ::=  <instruccion> | <ciclo> | <decision> | <instruccion> <Bloque instruccion> | <ciclo> <Bloque instruccion> | <decision> <Bloque instruccion>
 
 -------------------------------------------------------------------------------------
 
