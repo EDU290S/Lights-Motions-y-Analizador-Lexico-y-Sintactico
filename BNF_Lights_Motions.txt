@@ -52,9 +52,66 @@ Aqui se trabajara el BNF de nuestro lenguaje.
     <impar> ::=  <digito> | <GradoFloat><digito>
     <impar> ::=  <instruccion> | <ciclo> | <decision> | <instruccion> <Bloque instruccion> | <ciclo> <Bloque instruccion> | <decision> <Bloque instruccion>
 
--------------------------------------------------------------------------------------
+---------------------------------BNF ORDENADO----------------------------------------------------
 
-<Bloque instruccion> ::= <instruccion> | <ciclo> | <decision> | <instruccion> <Bloque instruccion> | <ciclo> <Bloque instruccion> | <decision> <Bloque instruccion>
-<instruccion> ::= <Definir entidad> | <Modificar entidad> 
-<Definir entidad> ::= <Definir Reflector> | <Definir Fuente>
-<Definir Reflector> ::= 'Reflector' <nombre> ';'
+<Lenguaje> ::= <instruccion> [<Lenguaje>] | <Ciclo> [<Lenguaje>] | <Decision> [<Lenguaje>] 
+
+<instruccion> ::= <Definir variable> | <Editar variable> | <Retraso>
+
+<Definir variable> ::= <Definir Entero> | <Definir Flotante> | <Definir Cadena> | <Definir Reflector> | <Definir Fuente>
+
+<Definir Entero> ::= "Int" <Variable>[ "=" [-]<Entero>]";"
+
+<Variable> ::= <Cadena> | <Cadena><Entero> | <Entero><Cadena>
+
+<Cadena> ::= <Letra> | <Letra><Cadena>
+
+<Letra> ::= a|b|c|d|e|f|g|h|i|j|k|l|m|n|ñ|o|p|q|r|s|t|u|v|w|x|y|z|A|B|C|D|E|F|G|H|I|J|K|L|M|N|Ñ|O|P|Q|R||S|T|U|V|W|X|Y|Z|
+
+<Entero> ::= <Digito> | <Digito> <Entero>
+
+<Digito> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+
+<Definir Flotante> ::= "Float" <Variable>[ "=" [-]<Numero>]";"
+
+<Numero> ::= <Entero> | <Entero>"."<Entero>
+
+<Definir Cadena> ::= "String" <Variable>[ "='" <Texto> "'"]";"
+
+<Texto> ::= <Cadena> [<Texto>] | <Entero> [<Texto>] | <Simbolo> [<Texto>]
+
+<Simbolo> ::= "_" | "," | "." | ";" | ":" | "#" | "$" | "/" | "&" | "%" | "(" | ")" | "!" | "¡"  | "¿" | "?" | " "
+
+<Definir Reflector> ::= PENDIENTE
+
+<Definir Fuente> ::= PENDIENTE
+
+<Editar variable> ::= <Editar Entero> | <Editar Flotante> | <Editar Cadena> | <Editar Reflector> | <Editar Fuente> 
+
+<Editar Entero> ::= <Variable> "=" [-]<Entero>";" | <Variable>"++;" | <Variable>"--;" 
+
+<Editar Flotante> ::= <Variable> "=" [-]<Numero>";"
+
+<Editar Cadena> ::= <Variable> "="" <Texto> "";"
+
+<Editar Reflector> ::= PENDIENTE
+
+<Editar Fuente> ::= PENDIENTE
+
+<Retraso> ::= "Delay" <Entero>";"
+
+<Ciclo> ::= <For> | <While>
+
+<For> ::= "For" <variable> "in range("<Entero>"){" <Lenguaje> "}"
+
+<While> ::= "While (" <Condiciones> "){" <Lenguaje> "}"
+
+<Condiciones> ::=  <Condicion> | <Condicion> <Conector> <Condiciones>
+
+<Conector> ::= "AND" | "OR"
+
+<Condicion> ::= <Operando> <OperadorLogico> <Operando>
+
+<OperadorLogico> ::= "==" | "=!" | "!=" | "<" | ">" | "<=" | ">="
+
+<Operando> ::= <Variable> | <Entero> | "'"<Texto>"'" | <Flotante>
