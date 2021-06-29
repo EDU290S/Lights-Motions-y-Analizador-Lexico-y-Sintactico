@@ -92,7 +92,7 @@ Aqui se trabajara el BNF de nuestro lenguaje.
 
 <Editar Flotante> ::= <Variable> = -<Numero>;
 
-<Editar Cadena> ::= <Variable> "="" <Texto> "";"
+<Editar Cadena> ::= <Variable> = <Texto> ;
 
 <Editar Reflector> ::= PENDIENTE
 
