@@ -59,17 +59,17 @@ Aqui se trabajara el BNF de nuestro lenguaje.
 
 <Definir variable> ::= <Definir Entero> | <Definir Flotante> | <Definir Cadena> | <Definir Reflector> | <Definir Fuente>
 
-<Definir Entero> ::= 'int' <Variable> = - <Entero> ;
+<Definir Entero> ::= 'int' <Variable> = - <Entero>
 
 <Entero> ::= <Digito> | <Digito> <Entero>
 
 <Digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
-<Definir Flotante> ::= Float <Variable> = - <Numero> ;
+<Definir Flotante> ::= Float <Variable> = - <Numero>
 
 <Numero> ::= <Entero> | <Entero> '.' <Entero>
 
-<Definir Cadena> ::= String <Variable> = <Texto> ;
+<Definir Cadena> ::= String <Variable> = <Texto>
 
 <Variable> ::= <Cadena> | <Cadena><Entero> | <Entero><Cadena>
 
@@ -79,13 +79,15 @@ Aqui se trabajara el BNF de nuestro lenguaje.
 
 <Letra> ::= <Mayuscula> | <Minuscula> 
 
-<Mayuscula> ::= A|B|C|D|E|F|G|H|I|J|K|L|M|N|Ñ|O|P|Q|R||S|T|U|V|W|X|Y|Z
+   <Mayuscula> ::= A|B|C|D|E|F|G|H|I|J|K|L|M|N|Ñ|O|P|Q|R||S|T|U|V|W|X|Y|Z
 
-<Minuscula> ::= a|b|c|d|e|f|g|h|i|j|k|l|m|n|ñ|o|p|q|r|s|t|u|v|w|x|y|z
+   <Minuscula> ::= a|b|c|d|e|f|g|h|i|j|k|l|m|n|ñ|o|p|q|r|s|t|u|v|w|x|y|z
 
 <Simbolo> ::= _ | , | . | ; | : | # | $ | / | & | % | ! | ¡ | ¿ | ? 
 
-<Definir Reflector> ::= PENDIENTE
+<Definir Reflector> ::= <PotenciaReflector> <Digito> + ('.' Digito +)
+
+    <Direccion Reflector> ::= {<Angulo>} | <Posicion>
 
 <Definir Fuente> ::= PENDIENTE
 
