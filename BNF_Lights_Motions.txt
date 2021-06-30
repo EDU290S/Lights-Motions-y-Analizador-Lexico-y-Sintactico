@@ -79,8 +79,6 @@ Aqui se trabajara el BNF de nuestro lenguaje.
 
     <Direccion Reflector> ::= {<Angulo>} | <Posicion>
 
-<Definir Reflector> ::- PENDIENTE
-
 <Definir Fuente> ::- PENDIENTE
 
 <Editar variable> ::- <Editar Entero> | <Editar Flotante> | <Editar Cadena> | <Editar Reflector> | <Editar Fuente> 
