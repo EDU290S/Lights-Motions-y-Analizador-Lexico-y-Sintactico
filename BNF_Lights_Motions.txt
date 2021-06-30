@@ -1,6 +1,5 @@
 Aqui se trabajara el BNF de nuestro lenguaje.
 
-
 <Controlador> ::= <Luces>  <Chorro de Agua>
 
 <Luces> ::= <Color> <Brillo> <Tiempo>
@@ -60,7 +59,7 @@ Aqui se trabajara el BNF de nuestro lenguaje.
 
 <Definir variable> ::= <Definir Entero> | <Definir Flotante> | <Definir Cadena> | <Definir Reflector> | <Definir Fuente>
 
-<Definir Entero> ::= "Int" <Variable> = - <Entero> ;
+<Definir Entero> ::= 'int' <Variable> = - <Entero> ;
 
 <Entero> ::= <Digito> | <Digito> <Entero>
 
@@ -68,7 +67,7 @@ Aqui se trabajara el BNF de nuestro lenguaje.
 
 <Definir Flotante> ::= Float <Variable> = - <Numero> ;
 
-<Numero> ::= <Entero> | <Entero> . <Entero>
+<Numero> ::= <Entero> | <Entero> '.' <Entero>
 
 <Definir Cadena> ::= String <Variable> = <Texto> ;
 
@@ -113,5 +112,7 @@ Aqui se trabajara el BNF de nuestro lenguaje.
 <Condicion> ::= <Operando> <OperadorLogico> <Operando>
 
 <OperadorLogico> ::= == | =! | != | < | > | <= | >=
+
+<OperadorSecuencial> ::= IF | ELSE | FOR | WHILE
 
 <Operando> ::= <Variable> | <Entero> | <Texto> | <Flotante>
