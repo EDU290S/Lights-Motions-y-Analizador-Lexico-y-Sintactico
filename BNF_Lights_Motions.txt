@@ -1,30 +1,20 @@
 Aqui se trabajara el BNF de nuestro lenguaje.
 
-<Controlador> ::= <Luces>  <Chorro de Agua>
+<Controlador> ::- <Luces>  <Chorro de Agua>
 
-<Luces> ::= <Color> <Brillo> <Tiempo>
+<Luces> ::- <Color> <Brillo> <Tiempo>
 
-	<Color> ::= <Codigo de color> | <Luces><Color>
+	<Color> ::- <Codigo de color> | <Luces><Color>
 
-		<Codigo de color> ::= <Entero> | <Cadena>
+		<Codigo de color> ::- <Entero> | <Cadena>
 
-			<Cadena> ::= <letra> | <cadena><letra>
-			<letra> ::= a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z
-			<Entero> ::= <digito> | <entero><digito>
-			<digito> ::= 0|1|2|3|4|5|6|7|8|9
-
-	<Brillo> ::= <Intensidad de brillo> | <Brillo><Intensidad de brillo>
+	<Brillo> ::- <Intensidad de brillo> | <Brillo><Intensidad de brillo>
 
 		<Intensidad de brillo> ::- <Entero>
-
-			<Entero> ::- <digito> | <entero><digito>
-			<digito> ::- 0|1|2|3|4|5|6|7|8|9
 
 	<Tiempo>::- <Tiempo de brillo> |<Tiempo> <Tiempo de brillo>
 
 		<Tiempo de brillo> ::- <Entero>
-			<Entero> ::- <digito> | <entero> <digito>
-			<digito> ::- 0|1|2|3|4|5|6|7|8|9
 
 <Chorro de Agua> ::- <Presion del agua> <Direccion del chorro>
 
@@ -32,52 +22,52 @@ Aqui se trabajara el BNF de nuestro lenguaje.
 
 		<Altura> ::- <Entero>
 
-			<Entero> ::- <digito> | <entero><digito>
-			<digito> ::- 0|1|2|3|4|5|6|7|8|9
-
 	<Direccion del chorro> ::- <Angulo de la valvula>
 
-		<Angulo de la valvula> ::- <Entero> <Simbolo de grado>
+		<Angulo de la valvula> ::- <Entero> <Simbolo>
 
-			<Entero> ::- <digito> | <entero><digito>
-			<digito> ::- 0|1|2|3|4|5|6|7|8|9
-			<Simbolo de grado> ::- °
+<NumeroFloat>   ::-  <PuntoFloat> | <°> | <Luces>
 
-<NumeroFloat>   ::=  <PuntoFloat> | <°> | <Luces>
-
-    <PuntoFloat> ::=  <impar fraccion> | <impar > .
-       <GradoFloat> ::=  <impar> | <PuntoFloat> °
+    <PuntoFloat> ::-  <impar fraccion> | <impar > .
+       <GradoFloat> ::-  <impar> | <PuntoFloat> °
     
-    <impar> ::=  <digito> | <GradoFloat><digito>
-    <impar> ::=  <instruccion> | <ciclo> | <decision> | <instruccion> <Bloque instruccion> | <ciclo> <Bloque instruccion> | <decision> <Bloque instruccion>
+    <impar> ::-  <digito> | <GradoFloat><digito>
+    <impar> ::-  <instruccion> | <ciclo> | <decision> | <instruccion> <Bloque instruccion> | <ciclo> <Bloque instruccion> | <decision> <Bloque instruccion>
 
 ---------------------------------BNF ORDENADO----------------------------------------------------
 
-<Lenguaje> ::= <instruccion> <Lenguaje> | <Ciclo> <Lenguaje> | <Decision> <Lenguaje>
+<Lenguaje> ::- <instruccion> <Lenguaje> | <Ciclo> <Lenguaje> | <Decision> <Lenguaje>
 
-<instruccion> ::= <Definir variable> | <Editar variable> | <Retraso>
+<instruccion> ::- <Definir variable> | <Editar variable> | <Retraso>
 
-<Definir variable> ::= <Definir Entero> | <Definir Flotante> | <Definir Cadena> | <Definir Reflector> | <Definir Fuente>
+<Definir variable> ::- <Definir Entero> | <Definir Flotante> | <Definir Cadena> | <Definir Reflector> | <Definir Fuente>
 
 <Definir Entero> ::= 'int' <Variable> = - <Entero>
 
-<Entero> ::= <Digito> | <Digito> <Entero>
+<Definir Entero> ::- 'int' <Variable> = - <Entero> ;
 
-<Digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+<Entero> ::- <Digito> | <Digito> <Entero>
+
+<Digito> ::- 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
 <Definir Flotante> ::= Float <Variable> = - <Numero>
 
-<Numero> ::= <Entero> | <Entero> '.' <Entero>
+<Definir Flotante> ::- Float <Variable> = - <Numero> ;
+
+<Numero> ::- <Entero> | <Entero> '.' <Entero>
 
 <Definir Cadena> ::= String <Variable> = <Texto>
 
-<Variable> ::= <Cadena> | <Cadena><Entero> | <Entero><Cadena>
+<Definir Cadena> ::- String <Variable> = <Texto> ;
 
-<Texto> ::= <Cadena> <Texto> | <Entero> <Texto> | <Simbolo> <Texto>
 
-<Cadena> ::= <Letra> | <Letra><Cadena>
+<Variable> ::- <Cadena> | <Cadena><Entero> | <Entero><Cadena>
 
-<Letra> ::= <Mayuscula> | <Minuscula> 
+<Texto> ::- <Cadena> <Texto> | <Entero> <Texto> | <Simbolo> <Texto>
+
+<Cadena> ::- <Letra> | <Letra><Cadena>
+
+<Letra> ::- <Mayuscula> | <Minuscula> 
 
    <Mayuscula> ::= A|B|C|D|E|F|G|H|I|J|K|L|M|N|Ñ|O|P|Q|R||S|T|U|V|W|X|Y|Z
 
@@ -89,36 +79,38 @@ Aqui se trabajara el BNF de nuestro lenguaje.
 
     <Direccion Reflector> ::= {<Angulo>} | <Posicion>
 
-<Definir Fuente> ::= PENDIENTE
+<Definir Reflector> ::- PENDIENTE
 
-<Editar variable> ::= <Editar Entero> | <Editar Flotante> | <Editar Cadena> | <Editar Reflector> | <Editar Fuente> 
+<Definir Fuente> ::- PENDIENTE
 
-<Editar Entero> ::= <Variable> = -<Entero>; | <Variable>++; | <Variable>--;
+<Editar variable> ::- <Editar Entero> | <Editar Flotante> | <Editar Cadena> | <Editar Reflector> | <Editar Fuente> 
 
-<Editar Flotante> ::= <Variable> = -<Numero>;
+<Editar Entero> ::- <Variable> = -<Entero>; | <Variable>++; | <Variable>--;
 
-<Editar Cadena> ::= <Variable> = <Texto> ;
+<Editar Flotante> ::- <Variable> = -<Numero>;
 
-<Editar Reflector> ::= PENDIENTE
+<Editar Cadena> ::- <Variable> = <Texto> ;
 
-<Editar Fuente> ::= PENDIENTE
+<Editar Reflector> ::- PENDIENTE
 
-<Retraso> ::= Delay <Entero>;
+<Editar Fuente> ::- PENDIENTE
 
-<Ciclo> ::= <For> | <While>
+<Retraso> ::- Delay <Entero>;
 
-<For> ::= For <variable> in range (<Entero>) { <Lenguaje> }
+<Ciclo> ::- <For> | <While>
 
-<While> ::= While ( <Condiciones> ){ <Lenguaje> }
+<For> ::- For <variable> in range (<Entero>) { <Lenguaje> }
 
-<Condiciones> ::=  <Condicion> | <Condicion> <Conector> <Condiciones>
+<While> ::- While ( <Condiciones> ){ <Lenguaje> }
 
-<Conector> ::= AND | OR
+<Condiciones> ::-  <Condicion> | <Condicion> <Conector> <Condiciones>
 
-<Condicion> ::= <Operando> <OperadorLogico> <Operando>
+<Conector> ::- AND | OR
 
-<OperadorLogico> ::= == | =! | != | < | > | <= | >=
+<Condicion> ::- <Operando> <OperadorLogico> <Operando>
 
-<OperadorSecuencial> ::= IF | ELSE | FOR | WHILE
+<OperadorLogico> ::- == | =! | != | < | > | <= | >=
 
-<Operando> ::= <Variable> | <Entero> | <Texto> | <Flotante>
+<OperadorSecuencial> ::- IF | ELSE | FOR | WHILE
+
+<Operando> ::- <Variable> | <Entero> | <Texto> | <Flotante>
