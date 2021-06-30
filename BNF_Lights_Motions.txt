@@ -1,30 +1,20 @@
 Aqui se trabajara el BNF de nuestro lenguaje.
 
-<Controlador> ::= <Luces>  <Chorro de Agua>
+<Controlador> ::- <Luces>  <Chorro de Agua>
 
-<Luces> ::= <Color> <Brillo> <Tiempo>
+<Luces> ::- <Color> <Brillo> <Tiempo>
 
-	<Color> ::= <Codigo de color> | <Luces><Color>
+	<Color> ::- <Codigo de color> | <Luces><Color>
 
-		<Codigo de color> ::= <Entero> | <Cadena>
+		<Codigo de color> ::- <Entero> | <Cadena>
 
-			<Cadena> ::= <letra> | <cadena><letra>
-			<letra> ::= a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z
-			<Entero> ::= <digito> | <entero><digito>
-			<digito> ::= 0|1|2|3|4|5|6|7|8|9
-
-	<Brillo> ::= <Intensidad de brillo> | <Brillo><Intensidad de brillo>
+	<Brillo> ::- <Intensidad de brillo> | <Brillo><Intensidad de brillo>
 
 		<Intensidad de brillo> ::- <Entero>
-
-			<Entero> ::- <digito> | <entero><digito>
-			<digito> ::- 0|1|2|3|4|5|6|7|8|9
 
 	<Tiempo>::- <Tiempo de brillo> |<Tiempo> <Tiempo de brillo>
 
 		<Tiempo de brillo> ::- <Entero>
-			<Entero> ::- <digito> | <entero> <digito>
-			<digito> ::- 0|1|2|3|4|5|6|7|8|9
 
 <Chorro de Agua> ::- <Presion del agua> <Direccion del chorro>
 
@@ -32,91 +22,84 @@ Aqui se trabajara el BNF de nuestro lenguaje.
 
 		<Altura> ::- <Entero>
 
-			<Entero> ::- <digito> | <entero><digito>
-			<digito> ::- 0|1|2|3|4|5|6|7|8|9
-
 	<Direccion del chorro> ::- <Angulo de la valvula>
 
-		<Angulo de la valvula> ::- <Entero> <Simbolo de grado>
+		<Angulo de la valvula> ::- <Entero> <Simbolo>
 
-			<Entero> ::- <digito> | <entero><digito>
-			<digito> ::- 0|1|2|3|4|5|6|7|8|9
-			<Simbolo de grado> ::- °
+<NumeroFloat>   ::-  <PuntoFloat> | <°> | <Luces>
 
-<NumeroFloat>   ::=  <PuntoFloat> | <°> | <Luces>
-
-    <PuntoFloat> ::=  <impar fraccion> | <impar > .
-       <GradoFloat> ::=  <impar> | <PuntoFloat> °
+    <PuntoFloat> ::-  <impar fraccion> | <impar > .
+       <GradoFloat> ::-  <impar> | <PuntoFloat> °
     
-    <impar> ::=  <digito> | <GradoFloat><digito>
-    <impar> ::=  <instruccion> | <ciclo> | <decision> | <instruccion> <Bloque instruccion> | <ciclo> <Bloque instruccion> | <decision> <Bloque instruccion>
+    <impar> ::-  <digito> | <GradoFloat><digito>
+    <impar> ::-  <instruccion> | <ciclo> | <decision> | <instruccion> <Bloque instruccion> | <ciclo> <Bloque instruccion> | <decision> <Bloque instruccion>
 
 ---------------------------------BNF ORDENADO----------------------------------------------------
 
-<Lenguaje> ::= <instruccion> <Lenguaje> | <Ciclo> <Lenguaje> | <Decision> <Lenguaje>
+<Lenguaje> ::- <instruccion> <Lenguaje> | <Ciclo> <Lenguaje> | <Decision> <Lenguaje>
 
-<instruccion> ::= <Definir variable> | <Editar variable> | <Retraso>
+<instruccion> ::- <Definir variable> | <Editar variable> | <Retraso>
 
-<Definir variable> ::= <Definir Entero> | <Definir Flotante> | <Definir Cadena> | <Definir Reflector> | <Definir Fuente>
+<Definir variable> ::- <Definir Entero> | <Definir Flotante> | <Definir Cadena> | <Definir Reflector> | <Definir Fuente>
 
-<Definir Entero> ::= 'int' <Variable> = - <Entero> ;
+<Definir Entero> ::- 'int' <Variable> = - <Entero> ;
 
-<Entero> ::= <Digito> | <Digito> <Entero>
+<Entero> ::- <Digito> | <Digito> <Entero>
 
-<Digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+<Digito> ::- 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
-<Definir Flotante> ::= Float <Variable> = - <Numero> ;
+<Definir Flotante> ::- Float <Variable> = - <Numero> ;
 
-<Numero> ::= <Entero> | <Entero> '.' <Entero>
+<Numero> ::- <Entero> | <Entero> '.' <Entero>
 
-<Definir Cadena> ::= String <Variable> = <Texto> ;
+<Definir Cadena> ::- String <Variable> = <Texto> ;
 
-<Variable> ::= <Cadena> | <Cadena><Entero> | <Entero><Cadena>
+<Variable> ::- <Cadena> | <Cadena><Entero> | <Entero><Cadena>
 
-<Texto> ::= <Cadena> <Texto> | <Entero> <Texto> | <Simbolo> <Texto>
+<Texto> ::- <Cadena> <Texto> | <Entero> <Texto> | <Simbolo> <Texto>
 
-<Cadena> ::= <Letra> | <Letra><Cadena>
+<Cadena> ::- <Letra> | <Letra><Cadena>
 
-<Letra> ::= <Mayuscula> | <Minuscula> 
+<Letra> ::- <Mayuscula> | <Minuscula> 
 
-<Mayuscula> ::= A|B|C|D|E|F|G|H|I|J|K|L|M|N|Ñ|O|P|Q|R||S|T|U|V|W|X|Y|Z
+<Mayuscula> ::- A|B|C|D|E|F|G|H|I|J|K|L|M|N|Ñ|O|P|Q|R||S|T|U|V|W|X|Y|Z
 
-<Minuscula> ::= a|b|c|d|e|f|g|h|i|j|k|l|m|n|ñ|o|p|q|r|s|t|u|v|w|x|y|z
+<Minuscula> ::- a|b|c|d|e|f|g|h|i|j|k|l|m|n|ñ|o|p|q|r|s|t|u|v|w|x|y|z
 
-<Simbolo> ::= _ | , | . | ; | : | # | $ | / | & | % | ! | ¡ | ¿ | ? 
+<Simbolo> ::- _ | , | . | ; | : | # | $ | / | & | % | ! | ¡ | ¿ | ? 
 
-<Definir Reflector> ::= PENDIENTE
+<Definir Reflector> ::- PENDIENTE
 
-<Definir Fuente> ::= PENDIENTE
+<Definir Fuente> ::- PENDIENTE
 
-<Editar variable> ::= <Editar Entero> | <Editar Flotante> | <Editar Cadena> | <Editar Reflector> | <Editar Fuente> 
+<Editar variable> ::- <Editar Entero> | <Editar Flotante> | <Editar Cadena> | <Editar Reflector> | <Editar Fuente> 
 
-<Editar Entero> ::= <Variable> = -<Entero>; | <Variable>++; | <Variable>--;
+<Editar Entero> ::- <Variable> = -<Entero>; | <Variable>++; | <Variable>--;
 
-<Editar Flotante> ::= <Variable> = -<Numero>;
+<Editar Flotante> ::- <Variable> = -<Numero>;
 
-<Editar Cadena> ::= <Variable> = <Texto> ;
+<Editar Cadena> ::- <Variable> = <Texto> ;
 
-<Editar Reflector> ::= PENDIENTE
+<Editar Reflector> ::- PENDIENTE
 
-<Editar Fuente> ::= PENDIENTE
+<Editar Fuente> ::- PENDIENTE
 
-<Retraso> ::= Delay <Entero>;
+<Retraso> ::- Delay <Entero>;
 
-<Ciclo> ::= <For> | <While>
+<Ciclo> ::- <For> | <While>
 
-<For> ::= For <variable> in range (<Entero>) { <Lenguaje> }
+<For> ::- For <variable> in range (<Entero>) { <Lenguaje> }
 
-<While> ::= While ( <Condiciones> ){ <Lenguaje> }
+<While> ::- While ( <Condiciones> ){ <Lenguaje> }
 
-<Condiciones> ::=  <Condicion> | <Condicion> <Conector> <Condiciones>
+<Condiciones> ::-  <Condicion> | <Condicion> <Conector> <Condiciones>
 
-<Conector> ::= AND | OR
+<Conector> ::- AND | OR
 
-<Condicion> ::= <Operando> <OperadorLogico> <Operando>
+<Condicion> ::- <Operando> <OperadorLogico> <Operando>
 
-<OperadorLogico> ::= == | =! | != | < | > | <= | >=
+<OperadorLogico> ::- == | =! | != | < | > | <= | >=
 
-<OperadorSecuencial> ::= IF | ELSE | FOR | WHILE
+<OperadorSecuencial> ::- IF | ELSE | FOR | WHILE
 
-<Operando> ::= <Variable> | <Entero> | <Texto> | <Flotante>
+<Operando> ::- <Variable> | <Entero> | <Texto> | <Flotante>
