@@ -48,7 +48,7 @@
 
 <Editar Cadena> ::- <Variable> = <Texto> ;
 
-<Editar Reflector> ::- <Editar Identificador> | <Editar Intensidad> | <Editar Color> | <Angulo>
+<Editar Reflector> ::- <Editar Identificador> | <Editar Intensidad> | <Editar Color> | <Editar Angulo>
 
 <Editar Intensidad> ::- <Variable>".intensity("<Valor>");"
 
@@ -56,7 +56,7 @@
 
 <Editar Color> ::- <Variable>".color("<Entero>");" | <Variable>".color("<Cadena>");"
 
-<Editar Fuente> ::- <Editar Identificador> | <Editar Presion> | <Angulo>
+<Editar Fuente> ::- <Editar Identificador> | <Editar Presion> | <Editar Angulo>
 
 <Editar Presion> ::- <Variable>".pressure("<Valor>");"
 
@@ -95,3 +95,40 @@
 <Else> ::- "else {" <Lenguaje> "};"
 
 ---Falta Implementar Funciones---
+
+
+//Creamos la instruccion para Controlar las luces y el chorro de agua
+<Instruccion: Controlador> ::- <Definir Variable: Luces> | <Definir Variable: Chorro de Agua>
+
+
+   //Definimos lo que seria el reflector el cual controlara las luces de la fuente, y sus variables
+   Light <Luces> ::- <IdentificadorL> | <Color> | <Intensidad> | <Angulo>
+
+      //Editamos las variables del reflector
+
+      <IdentificadorL> ::- <L1>".id("<IdentificadorL>");" | <L2>".id("<IdentificadorL>");" | <L3>".id("<IdentificadorL>");"
+                     | <L4>".id("<IdentificadorL>");" | <L5>".id("<IdentificadorL>");"
+
+
+      <Color> ::- <Codigo de IdentificadorL>.color("<Entero>");" | <Codigo>.color("<Cadena>");"
+
+         
+      <Intensidad> ::- <Brillo de IdentificadorL>".intensity("<Valor>");"
+
+      <Angulo> ::- <Angulo de IdentificadorL>".angle("<Valor>");"
+            
+
+   //Definimos lo que seria la fuente, la cual controlara los chorros de agua de la fuente, y sus variables
+   Waterjet <Chorro de Agua> ::- <IdentificadorB> | <Presion> | <Angulo>
+
+      //Editamos las variables de la fuente
+
+      <IdentificadorB> ::- <B1>".id("<IdentificadorB>");" | <B2>".id("<IdentificadorB>");" | <B3>".id("<IdentificadorB>");"
+                     | <B4>".id("<IdentificadorB>");" | <B5>".id("<IdentificadorB>");"
+
+      <Presion> ::- <Presion de IdentificadorB>".pressure("<Valor>");"
+
+      <Angulo> ::- <Angulo de IdentificadorB>".angle("<Valor>");" 
+
+   //Creamos funciones para que la fuente funcione
+   
