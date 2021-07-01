@@ -105,10 +105,8 @@
       <IdentificadorL> ::- <L1>".id("<IdentificadorL>");" | <L2>".id("<IdentificadorL>");" | <L3>".id("<IdentificadorL>");"
                      | <L4>".id("<IdentificadorL>");" | <L5>".id("<IdentificadorL>");"
 
-
-      <Color> ::- <Codigo de IdentificadorL>.color("<Entero>");" | <Codigo>.color("<Cadena>");"
-
-         
+      <Color> ::- <Codigo de IdentificadorL>.color("<Entero>");" | <Codigo de IdentificadorL>.color("<Cadena>");"
+      
       <Intensidad> ::- <Brillo de IdentificadorL>".intensity("<Valor>");"
 
       <Angulo> ::- <Angulo de IdentificadorL>".angle("<Valor>");"
@@ -128,3 +126,32 @@
 
    //Creamos funciones para que la fuente funcione
    
+   <Muro de Agua> ::- if(<IdentificadorL> == <IdentificadorB>){
+
+      <Codigo de IdentificadorL>.color("<Azul>");
+      <Brillo de IdentificadorL>".intensity("<100>");
+      <Angulo> ::- <Angulo de IdentificadorL>".angle("<90>");
+      <Presion de IdentificadorB>".pressure("<100>");
+      <Angulo de IdentificadorB>".angle("<90>");
+
+   }
+
+   <Muro de Agua 2> ::- if(<IdentificadorL> != <IdentificadorB>){
+
+      <Codigo de IdentificadorL>.color("<Rojo>");
+      <Brillo de IdentificadorL>".intensity("<100>");
+      <Angulo> ::- <Angulo de IdentificadorL>".angle("<90>");
+      <Presion de IdentificadorB>".pressure("<100>");
+      <Angulo de IdentificadorB>".angle("<90>");
+
+   }
+
+   <Arco de Agua> ::- while (<IdentificadorL> > <IdentificadorB>){
+
+      <Codigo de IdentificadorL>.color("<Verde>");
+      <Brillo de IdentificadorL>".intensity("<50>");
+      <Angulo> ::- <Angulo de IdentificadorL>".angle("<45>");
+      <Presion de IdentificadorB>".pressure("<50>");
+      <Angulo de IdentificadorB>".angle("<45>");
+
+   }
