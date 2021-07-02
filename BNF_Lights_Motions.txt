@@ -1,12 +1,12 @@
 ---------------------------------BNF ORDENADO----------------------------------------------------
 
-<Lenguaje> ::- <instruccion> [<Lenguaje>] | <Ciclo> [<Lenguaje>] | <Decision> [<Lenguaje>]
+<Lenguaje> ::- <instruccion> [<Lenguaje>] | <Ciclo> [<Lenguaje>] | <Decision> [<Lenguaje>] | <Funcion> [<Lenguaje>]
 
-<instruccion> ::- <Definir variable> | <Editar variable> | <Retraso>
+<instruccion> ::- <Definir variable> | <Editar variable> | <Retraso> 
 
 <Definir variable> ::- <Definir Entero> | <Definir Flotante> | <Definir Cadena> | <Definir Reflector> | <Definir Fuente>
 
-<Definir Entero> ::= 'int' <Variable> [= <Entero>];
+<Definir Entero> ::= 'int' <Variable> [= [-]<Entero>];
 
 <Entero> ::= <Digito> | <Digito> <Entero>
 
@@ -44,7 +44,7 @@
 
 <Editar Cadena> ::= <Variable> = <Texto> ;
 
-<Editar Reflector> ::= <Editar Identificador> | <Editar Intensidad> | <Editar Color> | <Editar Angulo>
+<Editar Reflector> ::= <Editar Identificador> | <Editar Intensidad> | <Editar Color> | <Editar Angulo> | <Editar Estado>
 
 <Editar Intensidad> ::= <Variable>".intensity("<Valor>");"
 
@@ -52,7 +52,9 @@
 
 <Editar Color> ::= <Variable>".color("<Entero>");" | <Variable>".color("<Cadena>");"
 
-<Editar Fuente> ::= <Editar Identificador> | <Editar Presion> | <Editar Angulo>
+<Editar Fuente> ::= <Editar Identificador> | <Editar Presion> | <Editar Angulo> | <Editar Estado>
+
+<Editar Estado> ::= <Variable>".on();" | <Variable>".off();"
 
 <Editar Presion> ::= <Variable>".pressure("<Valor>");"
 
@@ -90,68 +92,30 @@
 
 <Else> ::= "else {" <Lenguaje> "};"
 
----Falta Implementar Funciones---
+<Funcion> ::= <Definir funcion> | <Llamar funcion>
+
+<Definir funcion> ::= <Funcion con retorno> | <Funcion sin retorno>
+
+<Llamar funcion> ::= <Variable>"("[<Parametros>]")"; | <Asignar a> <Variable>"("[<Parametros>]")"; 
+
+<Asignar a> ::= <Type> <Variable> "="
+
+<Type> ::= int | String | float | light | waterjet 
+
+<Parametros> ::= <Parametro> [, <Parametro>]
+
+<Parametro> ::= <Variable> | <Numero> | <Texto> | <Cadena>
+
+<Funcion con retorno> ::= "Funtion" <Tipo> <Variable> "("[<Definir Parametros>]") {" <Lenguaje> return <Retorno>"};
+
+<Funcion sin retorno> ::= "Funtion void" <Variable> "("[<Definir Parametros>]") {"<Lenguaje> "};"
+
+<Tipo> ::= int | float | String | waterjet | light
+
+<Retorno> ::= <Variable> | <Numero> | <Texto> | <Cadena> 
+
+<Definir Parametros> :: <Definir Parametro> [ "," <Definir Parametros>]
+
+<Definir Parametro> ::= <Definir Variable>
 
 
-//Creamos la instruccion para Controlar las luces y el chorro de agua
-<Instruccion: Controlador> ::- <Definir Variable: Luces> | <Definir Variable: Chorro de Agua>
-
-
-   //Definimos lo que seria el reflector el cual controlara las luces de la fuente, y sus variables
-   Light <Luces> ::- <IdentificadorL> | <Color> | <Intensidad> | <Angulo>
-
-      //Editamos las variables del reflector
-
-      <IdentificadorL> ::- <L1>".id("<IdentificadorL>");" | <L2>".id("<IdentificadorL>");" | <L3>".id("<IdentificadorL>");"
-                     | <L4>".id("<IdentificadorL>");" | <L5>".id("<IdentificadorL>");"
-
-      <Color> ::- <Codigo de IdentificadorL>.color("<Entero>");" | <Codigo de IdentificadorL>.color("<Cadena>");"
-      
-      <Intensidad> ::- <Brillo de IdentificadorL>".intensity("<Valor>");"
-
-      <Angulo> ::- <Angulo de IdentificadorL>".angle("<Valor>");"
-            
-
-   //Definimos lo que seria la fuente, la cual controlara los chorros de agua de la fuente, y sus variables
-   Waterjet <Chorro de Agua> ::- <IdentificadorB> | <Presion> | <Angulo>
-
-      //Editamos las variables de la fuente
-
-      <IdentificadorB> ::- <B1>".id("<IdentificadorB>");" | <B2>".id("<IdentificadorB>");" | <B3>".id("<IdentificadorB>");"
-                     | <B4>".id("<IdentificadorB>");" | <B5>".id("<IdentificadorB>");"
-
-      <Presion> ::- <Presion de IdentificadorB>".pressure("<Valor>");"
-
-      <Angulo> ::- <Angulo de IdentificadorB>".angle("<Valor>");" 
-
-   //Creamos funciones para que la fuente funcione
-   
-   <Muro de Agua> ::- if(<IdentificadorL> == <IdentificadorB>){
-
-      <Codigo de IdentificadorL>.color("<Azul>");
-      <Brillo de IdentificadorL>".intensity("<100>");
-      <Angulo> ::- <Angulo de IdentificadorL>".angle("<90>");
-      <Presion de IdentificadorB>".pressure("<100>");
-      <Angulo de IdentificadorB>".angle("<90>");
-
-   }
-
-   <Muro de Agua 2> ::- if(<IdentificadorL> != <IdentificadorB>){
-
-      <Codigo de IdentificadorL>.color("<Rojo>");
-      <Brillo de IdentificadorL>".intensity("<100>");
-      <Angulo> ::- <Angulo de IdentificadorL>".angle("<90>");
-      <Presion de IdentificadorB>".pressure("<100>");
-      <Angulo de IdentificadorB>".angle("<90>");
-
-   }
-
-   <Arco de Agua> ::- while (<IdentificadorL> > <IdentificadorB>){
-
-      <Codigo de IdentificadorL>.color("<Verde>");
-      <Brillo de IdentificadorL>".intensity("<50>");
-      <Angulo> ::- <Angulo de IdentificadorL>".angle("<45>");
-      <Presion de IdentificadorB>".pressure("<50>");
-      <Angulo de IdentificadorB>".angle("<45>");
-
-   }
