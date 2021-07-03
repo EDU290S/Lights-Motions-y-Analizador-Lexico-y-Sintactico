@@ -1,34 +1,38 @@
 ---------------------------------BNF ORDENADO----------------------------------------------------
 
-<Lenguaje> ::- <instruccion> [<Lenguaje>] | <Ciclo> [<Lenguaje>] | <Decision> [<Lenguaje>] | <Funcion> [<Lenguaje>]
+<Lenguaje> ::= <Instruccion> [<Lenguaje>] | <Ciclo> [<Lenguaje>] | <Decision> [<Lenguaje>] | <Funcion> [<Lenguaje>]
 
-<instruccion> ::- <Definir variable> | <Editar variable> | <Retraso> 
+<instruccion> ::= <Definir variable> | <Editar variable> | <Retraso> | <Aritmetica> | <Escribir> | <IngresarValor>
 
-<Definir variable> ::- <Definir Entero> | <Definir Flotante> | <Definir Cadena> | <Definir Reflector> | <Definir Fuente>
+<Definir variable> ::= <Definir Entero> | <Definir Flotante> | <Definir Cadena> | <Definir Reflector> | <Definir Fuente>
 
-<Definir Entero> ::= 'int' <Variable> [= [-]<Entero>];
+<Definir Entero> ::= int <Variable> [= <Entero>];
 
-<Entero> ::= <Digito> | <Digito> <Entero>
+<Entero> ::= [-]<Numero>
+
+<Numero> ::= <Digito> | <Digito>
 
 <Digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
-<Definir Flotante> ::= Float <Variable> [= <Numero>];
+<Definir Flotante> ::= float <Variable> [= <Flotante>];
 
-<Numero> ::= [-]<Entero> | [-]<Entero> '.' <Entero>
+<Flotante> ::= [-]<Numero> | [-]<Numero>.<Numero>
 
-<Definir Cadena> ::= String <Variable> [= """<Texto>"""];
+<Definir Cadena> ::= String <Variable> [= <Texto>];
 
-<Variable> ::= <Cadena> | <Cadena><Entero> | <Entero><Cadena>
+<Variable> ::= <Cadena> | <Cadena><Numero> | <Numero><Cadena>
 
-<Texto> ::= <Cadena> <Texto> | <Entero> <Texto> | <Simbolo> <Texto>
+<Texto> ::= "<Escrito>"
+
+<Escrito> ::= <Cadena> [<Escrito>] | <Numero> [<Escrito>] | <Simbolo> [<Escrito>]
 
 <Cadena> ::= <Letra> | <Letra><Cadena>
 
 <Letra> ::= <Mayuscula> | <Minuscula> 
 
-   <Mayuscula> ::= A|B|C|D|E|F|G|H|I|J|K|L|M|N|Ñ|O|P|Q|R||S|T|U|V|W|X|Y|Z
+<Mayuscula> ::= A|B|C|D|E|F|G|H|I|J|K|L|M|N|Ñ|O|P|Q|R||S|T|U|V|W|X|Y|Z
 
-   <Minuscula> ::= a|b|c|d|e|f|g|h|i|j|k|l|m|n|ñ|o|p|q|r|s|t|u|v|w|x|y|z
+<Minuscula> ::= a|b|c|d|e|f|g|h|i|j|k|l|m|n|ñ|o|p|q|r|s|t|u|v|w|x|y|z
 
 <Simbolo> ::= _ | , | . | ; | : | # | $ | / | & | % | ! | ¡ | ¿ | ? 
 
@@ -36,85 +40,103 @@
 
 <Definir Fuente> ::= Waterjet <Variable>;
 
+<Aritmetica> ::= <Suma> | <Operando Natural> <Operador Aritmetico> <Operando Natural>
+
+<Suma> ::= <Operando> + <Operando>
+
+<Operando> ::= <Variable> | <Entero> | <Texto> | <Flotante> | <Obtener propiedad>
+
+<Operador Aritmetico> ::= - | / | *
+
+<Operando Natural> ::= <Variable> | <Entero> | <Flotante> | <Obtener propiedad>
+
+<Obtener propiedad> ::= <Variable>.<Ligth o Waterjet>()
+
+<Ligth o Waterjet> ::= pressure | intensity | on | off | color | id | angle
+
 <Editar variable> ::= <Editar Entero> | <Editar Flotante> | <Editar Cadena> | <Editar Reflector> | <Editar Fuente> 
 
-<Editar Entero> ::= <Variable> = -<Entero>; | <Variable>++; | <Variable>--;
+<Editar Entero> ::= <Variable> = <Entero>; | <Variable>++; | <Variable>--; | <Variable> = <Aritmetica>;
 
-<Editar Flotante> ::= <Variable> = -<Numero>;
+<Editar Flotante> ::= <Variable> = <Flotante>; | <Variable> = <Aritmetica>;
 
-<Editar Cadena> ::= <Variable> = <Texto> ;
+<Editar Cadena> ::= <Variable> = <Texto>; | <Variable> = <Suma>;
 
 <Editar Reflector> ::= <Editar Identificador> | <Editar Intensidad> | <Editar Color> | <Editar Angulo> | <Editar Estado>
 
-<Editar Intensidad> ::= <Variable>".intensity("<Valor>");"
+<Editar Intensidad> ::= <Variable>.intensity( <Valor> );
 
-<Valor> ::= <Variable> | <Entero> | <Flotante>
+<Valor> ::= <Variable> | <Entero> | <Flotante> | <Aritmetica>;
 
-<Editar Color> ::= <Variable>".color("<Entero>");" | <Variable>".color("<Cadena>");"
+<Editar Color> ::= <Variable>.color( <Entero> );  | <Variable>.color( #<Cadena> ); 
 
 <Editar Fuente> ::= <Editar Identificador> | <Editar Presion> | <Editar Angulo> | <Editar Estado>
 
-<Editar Estado> ::= <Variable>".on();" | <Variable>".off();"
+<Editar Estado> ::= <Variable>.on(); | <Variable>.off();
 
-<Editar Presion> ::= <Variable>".pressure("<Valor>");"
+<Editar Presion> ::= <Variable>.pressure( <Valor> ); 
 
-<Editar Identificador> ::= <Variable>".id("<Identificador>");"
+<Editar Identificador> ::= <Variable>.id( <Identificador> );
 
-<Identificador> ::= <Variable> | <ID> 
+<Identificador> ::= <Variable> | "<Variable>"
 
-<ID> ::= <Cadena>[<ID>] | <Cadena><Entero>[<ID>] | <Entero><Cadena>[<ID>] | <Entero>[<ID>]
+<Editar Angulo> ::= <Variable>.angle( <Valor> ); 
 
-<Editar Angulo>::= <Variable>".angle("<Valor>");"
+<Retraso> ::= Delay <Entero>; | Delay <Variable>; | Delay <Aritmetica>;
 
-<Retraso> ::= Delay <Entero>; | Delay <Variable>;
+<Escribir> ::= console.writeLn( <Mostrar> );
+
+<Mostrar> :: <Variable> | <Entero> | <Flotante> | <Texto> | <Obtener propiedad> | <Aritmetica>;
+
+<IngresarValor> ::= scribe(<Variable>);
 
 <Ciclo> ::= <For> | <While>
 
-<For> ::= For <Variable> "in range ["<Entero>"] {" <Lenguaje> "};" 
+<For> ::= for <Variable> in range [ <Entero> ] { <Lenguaje> };
 
-<While> ::= "While (" <Condiciones> "){" <Lenguaje> "};"  
+<While> ::= while ( <Condiciones> ){ <Lenguaje> };  
 
-<Condiciones> ::=  <Condicion> | <Condicion> <Conector> <Condiciones>
+<Condiciones> ::=  <Condicion> | <Condicion> <Conector> [(] <Condiciones> [)]
 
 <Conector> ::= AND | OR 
 
-<Condicion> ::= <Operando> <OperadorLogico> <Operando>
+<Condicion> ::= <OperandoCondicion> <OperadorLogico> <OperandoCondicion>
+
+<OperandoCondicion> ::= <Operando> | <Aritmetica>
 
 <OperadorLogico> ::= == | =! | < | > | <= | >=
 
-<Operando> ::= <Variable> | <Entero> | <Texto> | <Flotante>
-
-<Decision> ::= "If (" <Condiciones> "){" <Lenguaje> "}" [<Complemento If>]
+<Decision> ::= If ( <Condiciones> ){ <Lenguaje> } [<Complemento If>]
 
 <Complemento IF> ::= <Else If> [<Complemento IF>] | <Else>
 
-<Else If> ::= "else if (" <Condiciones> "){" <Lenguaje> "};"
+<Else If> ::= else if ( <Condiciones> ){ <Lenguaje> };
 
-<Else> ::= "else {" <Lenguaje> "};"
+<Else> ::= else { <Lenguaje> };
 
 <Funcion> ::= <Definir funcion> | <Llamar funcion>
 
 <Definir funcion> ::= <Funcion con retorno> | <Funcion sin retorno>
 
-<Llamar funcion> ::= <Variable>"("[<Parametros>]")"; | <Asignar a> <Variable>"("[<Parametros>]")"; 
+<Llamar funcion> ::= <Variable> ( [<Parametros>] ); | <Asignar a> <Variable>( [<Parametros>] ); 
 
-<Asignar a> ::= <Type> <Variable> "="
+<Asignar a> ::= <Type> <Variable> =
 
 <Type> ::= int | String | float | light | waterjet 
 
 <Parametros> ::= <Parametro> [, <Parametro>]
 
-<Parametro> ::= <Variable> | <Numero> | <Texto> | <Cadena>
+<Parametro> ::= <Variable> | <Entero> | <Flotante> | <Texto> | <Cadena> | <Obtener propiedad>
 
-<Funcion con retorno> ::= "Funtion" <Tipo> <Variable> "("[<Definir Parametros>]") {" <Lenguaje> return <Retorno>"};
+<Funcion con retorno> ::= funtion <Tipo> <Variable> ( [<Definir Parametros>] ) { <Lenguaje> return <Retorno> };
 
-<Funcion sin retorno> ::= "Funtion void" <Variable> "("[<Definir Parametros>]") {"<Lenguaje> "};"
+<Funcion sin retorno> ::= Funtion void <Variable> ( [<Definir Parametros>] ) { <Lenguaje> };
 
 <Tipo> ::= int | float | String | waterjet | light
 
-<Retorno> ::= <Variable> | <Numero> | <Texto> | <Cadena> 
+<Retorno> ::= <Variable> | <Numero> | <Texto> | <Cadena> | <Aritmetica>
 
-<Definir Parametros> :: <Definir Parametro> [ "," <Definir Parametros>]
+<Definir Parametros> :: <Definir Parametro> [ , <Definir Parametros>]
 
 <Definir Parametro> ::= <Definir Variable>
 
