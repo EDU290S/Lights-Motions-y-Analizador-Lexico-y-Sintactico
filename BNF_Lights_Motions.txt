@@ -1,24 +1,36 @@
 ---------------------------------BNF ORDENADO----------------------------------------------------
 
-<Lenguaje> ::= <Instruccion> [<Lenguaje>] | <Ciclo> [<Lenguaje>] | <Decision> [<Lenguaje>] | <Funcion> [<Lenguaje>]
+<Lenguaje> ::= <Bloque codigo> | <Bloque codigo><Lenguaje>
 
-<instruccion> ::= <Definir variable> | <Editar variable> | <Retraso> | <Aritmetica> | <Escribir> | <IngresarValor>
+<Bloque codigo> ::= <Instruccion> | <Ciclo> | <Decision> | <Funcion>
+
+<Instruccion> ::= <Definir variable> | <Editar variable> | <Retraso> | <Aritmetica> | <Escribir> | <IngresarValor>
 
 <Definir variable> ::= <Definir Entero> | <Definir Flotante> | <Definir Cadena> | <Definir Reflector> | <Definir Fuente>
 
-<Definir Entero> ::= int <Variable> [= <Entero>];
+<Definir Entero> ::= int <Variable>; | int <Variable> = <Entero>; | int <Variable> = <Aritmetica>;
 
-<Entero> ::= [-]<Numero>
+<Entero> ::= <Numero> | -<Numero>
 
 <Numero> ::= <Digito> | <Digito>
 
 <Digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
-<Definir Flotante> ::= float <Variable> [= <Flotante>];
+<Definir Flotante> ::= float <Variable>; | float <Variable> = <Flotante>; | float <Variable> = <Aritmetica>;
 
-<Flotante> ::= [-]<Numero> | [-]<Numero>.<Numero>
+<Flotante> ::= <Entero> | <Entero>.<Numero>
 
-<Definir Cadena> ::= String <Variable> [= <Texto>];
+<Aritmetica> ::= <Operacion> | <Operacion><Adicional> 
+
+<Operacion> ::= <Operando> <Operador Aritmetico> <Operando>
+
+<Operando> ::= <Variable> | <Entero> | <Flotante>
+
+<Operador Aritmetico> ::= - | / | * | +
+
+<Adicional> ::= <<Operador Aritmetico> <Operando> | <Aritmetica>
+
+<Definir Cadena> ::= String <Variable>; | String <Variable> = <Texto>;
 
 <Variable> ::= <Letra> | <Letra><Variable>
 
@@ -38,12 +50,6 @@
 
 <Definir Fuente> ::= Waterjet <Variable>;
 
-<Aritmetica> ::= <Operando> <Operador Aritmetico> <Operando>
-
-<Operando> ::= <Variable> | <Entero> | <Flotante>
-
-<Operador Aritmetico> ::= - | / | * | +
-
 <Editar variable> ::= <Editar Entero> | <Editar Flotante> | <Editar Cadena> | <Editar Reflector> | <Editar Fuente> 
 
 <Editar Entero> ::= <Variable> = <Entero>; | <Variable>++; | <Variable>--; | <Variable> = <Aritmetica>;
@@ -60,7 +66,7 @@
 
 <Editar Color> ::= <Usar Color> | <Declarar Color>
 
-<Usar Color> ::= <Variable>.useColor( <Entero> ); 
+<Usar Color> ::= <Variable>.useColor( <Entero> ); | <Variable>.useColor( <Variable> ); 
 
 <Declarar Color> ::= <Variable>.declareColor(<Colores>);
 
@@ -98,36 +104,34 @@
 
 <OperadorLogico> ::= == | =! | < | > | <= | >=
 
-<Decision> ::= If ( <Condicion> ){ <Lenguaje> } [<Complemento If>]
+<Decision> ::= If ( <Condicion> ){ <Lenguaje> } | If ( <Condicion> ){ <Lenguaje> }<Complemento If>;
 
-<Complemento IF> ::= <Else If> [<Complemento IF>] | <Else>
+<Complemento IF> ::= <Else If> | <Else If><Complemento IF>  | <Else>
 
-<Else If> ::= else if ( <Condicion> ){ <Lenguaje> };
+<Else If> ::= else if ( <Condicion> ){ <Lenguaje> }
 
-<Else> ::= else { <Lenguaje> };
+<Else> ::= else { <Lenguaje> }
 
 <Funcion> ::= <Definir funcion> | <Llamar funcion>
 
 <Definir funcion> ::= <Funcion con retorno> | <Funcion sin retorno>
 
-<Llamar funcion> ::= <Variable> ( [<Parametros>] ); | <Asignar a> <Variable>( [<Parametros>] ); 
+<Llamar funcion> ::= <Variable> ( <Parametros> ); | <Asignar a> <Variable>( <Parametros> ); | <Variable> (); | <Asignar a> <Variable>(); 
 
-<Asignar a> ::= <Variable> =
+<Asignar a> ::= <Variable> = | <Type> <Variable> = 
 
-<Parametros> ::= <Parametro> [, <Parametro>]
+<Parametros> ::= <Parametro> | <Parametro>, <Parametro>
 
-<Parametro> ::= <Variable> | <Entero> | <Flotante> | <Texto> | <Obtener propiedad>
+<Parametro> ::= <Variable> | <Entero> | <Flotante> | <Texto>
 
-<Funcion con retorno> ::= funtion <Type> <Variable> ( [<Definir Parametros>] ) { <Lenguaje> return <Retorno>; };
+<Funcion con retorno> ::= funtion <Type> <Variable> ( <Definir Parametros> ) { <Lenguaje> return <Retorno>; }; | funtion <Type> <Variable> () { <Lenguaje> return <Retorno>; };
 
 <Type> ::= int | String | float | light | waterjet 
 
-<Funcion sin retorno> ::= Funtion void <Variable> ( [<Definir Parametros>] ) { <Lenguaje> };
+<Funcion sin retorno> ::= funtion void <Variable> ( <Definir Parametros> ) { <Lenguaje> }; | Funtion void <Variable> () { <Lenguaje> };
 
 <Retorno> ::= <Variable> | <Numero> | <Texto> | <Cadena> | <Aritmetica>
 
-<Definir Parametros> :: <Definir Parametro> [ , <Definir Parametros>]
-
-<Definir Parametro> ::= <Definir Variable>
+<Definir Parametros> :: <Definir variable> | <Definir variable>, <Definir Parametros>
 
 
