@@ -6,31 +6,9 @@
 
 <Instruccion> ::= <Definir variable> | <Editar variable> | <Retraso> | <Aritmetica> | <Escribir> | <IngresarValor>
 
-<Definir variable> ::= <Definir Entero> | <Definir Flotante> | <Definir Cadena> | <Definir Reflector> | <Definir Fuente>
+<Definir variable> ::= <Tipo> <Variable>;
 
-<Definir Entero> ::= int <Variable>; | int <Variable> = <Entero>; | int <Variable> = <Aritmetica>;
-
-<Entero> ::= <Numero> | -<Numero>
-
-<Numero> ::= <Digito> | <Digito>
-
-<Digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-
-<Definir Flotante> ::= float <Variable>; | float <Variable> = <Flotante>; | float <Variable> = <Aritmetica>;
-
-<Flotante> ::= <Entero> | <Entero>.<Numero>
-
-<Aritmetica> ::= <Operacion> | <Operacion><Adicional> 
-
-<Operacion> ::= <Operando> <Operador Aritmetico> <Operando>
-
-<Operando> ::= <Variable> | <Entero> | <Flotante>
-
-<Operador Aritmetico> ::= - | / | * | +
-
-<Adicional> ::= <<Operador Aritmetico> <Operando> | <Aritmetica>
-
-<Definir Cadena> ::= String <Variable>; | String <Variable> = <Texto>;
+<Tipo> ::= int | float | string | light | waterjet
 
 <Variable> ::= <Letra> | <Letra><Variable>
 
@@ -40,29 +18,31 @@
 
 <Minuscula> ::= a|b|c|d|e|f|g|h|i|j|k|l|m|n|ñ|o|p|q|r|s|t|u|v|w|x|y|z
 
+<Editar variable> ::= <Editar Numero> | <Editar Cadena> | <Editar Reflector> | <Editar Fuente> 
+
+<Editar Numero> ::= <Variable> = <Flotante>;
+
+<Flotante> ::= <Numero> | -<Numero>
+
+<Numero> ::= <Entero> | <Entero>.<Entero>
+
+<Entero> ::= <Digito> | <Digito><Entero>
+
+<Digito> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+<Editar Cadena> ::= <Variable> = <Texto>; 
+
 <Texto> ::= "<Imprimible>"
 
 <Imprimible> ::= <Caracter>[<Imprimible>]
 
 <Caracter> ::= [ ...~]
 
-<Definir Reflector> ::= Light <Variable>;
-
-<Definir Fuente> ::= Waterjet <Variable>;
-
-<Editar variable> ::= <Editar Entero> | <Editar Flotante> | <Editar Cadena> | <Editar Reflector> | <Editar Fuente> 
-
-<Editar Entero> ::= <Variable> = <Entero>; | <Variable>++; | <Variable>--; | <Variable> = <Aritmetica>;
-
-<Editar Flotante> ::= <Variable> = <Flotante>; | <Variable> = <Aritmetica>;
-
-<Editar Cadena> ::= <Variable> = <Texto>; 
-
 <Editar Reflector> ::= <Editar Identificador> | <Editar Intensidad> | <Editar Color> | <Editar Angulo> | <Editar Estado>
 
 <Editar Intensidad> ::= <Variable>.intensity( <Valor> );
 
-<Valor> ::= <Variable> | <Entero> | <Flotante> | <Aritmetica>;
+<Valor> ::= <Variable> | <Flotante>
 
 <Editar Color> ::= <Usar Color> | <Declarar Color>
 
@@ -88,23 +68,23 @@
 
 <Escribir> ::= writeLn( <Imprimir> );
 
-<Imprimir> :: <Variable> | <Entero> | <Flotante> | <Texto>
+<Imprimir> ::= <Variable> | <Texto>
 
 <IngresarValor> ::= scribe(<Variable>);
 
 <Ciclo> ::= <For> | <While>
 
-<For> ::= for <Variable> range [ <Entero> ] { <Lenguaje> };
+<For> ::= for <Variable> range [ <Entero> ] { <Lenguaje> }
 
-<While> ::= while ( <Condicion> ){ <Lenguaje> };   
+<While> ::= while ( <Condicion> ){ <Lenguaje> }   
 
 <Condicion> ::= <OperandoCondicion> <OperadorLogico> <OperandoCondicion>
 
-<OperandoCondicion> ::= <Operando> | <Aritmetica> | <Texto>
+<OperandoCondicion> ::= <Valor> | <Texto>
 
 <OperadorLogico> ::= == | =! | < | > | <= | >=
 
-<Decision> ::= If ( <Condicion> ){ <Lenguaje> } | If ( <Condicion> ){ <Lenguaje> }<Complemento If>;
+<Decision> ::= If ( <Condicion> ){ <Lenguaje> } | If ( <Condicion> ){ <Lenguaje> }<Complemento If>
 
 <Complemento IF> ::= <Else If> | <Else If><Complemento IF>  | <Else>
 
@@ -120,17 +100,17 @@
 
 <Asignar a> ::= <Variable> = | <Type> <Variable> = 
 
-<Parametros> ::= <Parametro> | <Parametro>, <Parametro>
+<Parametros> ::= <Parametro> | <Parametro>, <Parametros>
 
-<Parametro> ::= <Variable> | <Entero> | <Flotante> | <Texto>
+<Parametro> ::= <Variable> | <Flotante> | <Texto>
 
-<Funcion con retorno> ::= funtion <Type> <Variable> ( <Definir Parametros> ) { <Lenguaje> return <Retorno>; }; | funtion <Type> <Variable> () { <Lenguaje> return <Retorno>; };
+<Funcion con retorno> ::= funtion <Type> <Variable> ( <Definir Parametros> ) { <Lenguaje> return <Retorno>; } | funtion <Type> <Variable> () { <Lenguaje> return <Retorno>; }
 
 <Type> ::= int | String | float | light | waterjet 
 
-<Funcion sin retorno> ::= funtion void <Variable> ( <Definir Parametros> ) { <Lenguaje> }; | Funtion void <Variable> () { <Lenguaje> };
+<Funcion sin retorno> ::= funtion void <Variable> ( <Definir Parametros> ) { <Lenguaje> } | Funtion void <Variable> () { <Lenguaje> }
 
-<Retorno> ::= <Variable> | <Numero> | <Texto> | <Cadena> | <Aritmetica>
+<Retorno> ::= <Variable> | <Flotante> | <Texto> 
 
 <Definir Parametros> :: <Definir variable> | <Definir variable>, <Definir Parametros>
 
