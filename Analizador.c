@@ -3,64 +3,27 @@
 #include <string.h>
 #include <stdbool.h>
 
-/* Declarando todo nuestro alfabeto incluyendo las palabras reservadas
-   a la estructura ya previamente diseñada en BNF a C. */
-L [a-zA-Z]]
-%{
-#include "y.tab.h"
-void yyerror (char *s);
-int yylex(x);
-}%
-%%
-"while" 			{return(WHILE);}
-"if"    			{return(IF);}
-"else"  			{return(ELSE);}
-"int"   			{return type;}
-"String"  			{return type;}
-"print"  			{return print;}
-"TRUE"  			{return(TRUE);}
-"FALSE"  			{return(FALSE);}
-"\"  				{return(COMILLAS);}
-","  				{;}
-"&&"  			    {return(AND);}
-"||"  				{return(OR);}
-"<="  				{return(LES_EQUAL);}
-">="  				{return(GREATER_EQUAL);}
-"=="  				{return(EQUAL);}
-"!="  				{return(DIFFERENT);}
-"<"  				{return('<');}
-">"  				{return('>');}
-"("  				{return('(');}
-")"  				{return('(');}
-"{"  				{return('{');}
-"{"  				{return('}');}
-[0-9]+  			{return number;}
-[A-Za-z0-9_]  		{return identifier;}
-"++"                {return(INCREMENT);}
-"--"                {return(DECREMENT);}
-[=;]	            {return yytext[0];}
-[ \t\n]				{ECHO; yyerror ("Error: Caracter no valido");}
-%%
-
 char *reservada[] = {"int", "float", "String", "light", "waterjet", "if", "else", "while", "for", "range", "funtion", "return", "writeLn", "scribe", "off", "on", "intensity", "useColor", "declareColor", "pressure", "angle", "Delay", "id"};
-char *entero[] = {""};
-char *flotante[]= {""};
-char *cadena[]= {""};
-char *luz[]= {""};
-char *fuente[]= {""};
-char *funcion[]= {""};
+char *instancia[] = {"int", "float", "String", "light", "waterjet"};
 
 bool esValida(char[]);
 bool esReservada(char[]);
 bool esEntero(char[]);
 bool esFlotante(char[]);
+bool esInstancia(char[]);
+void validarCadena(char[]);
 
+enum type {var, fun, fr, whil, des, inst};
+
+char aux[100];
 
 int main(){
-	
-	char linea[200] = "23";
-	printf("Linea de codigo a complilar: %s\n\n", linea);
-	
+
+ char linea[200] = "int hola;";
+ printf("Linea de codigo a complilar: %s\n\n", linea);
+
+ validarCadena(linea);
+/*
 	if(esValida(linea)){
 		if(esReservada(linea)){
 			printf("Es reservada\n");
@@ -70,11 +33,59 @@ int main(){
 	}else if(esFlotante(linea)){
         printf("Es flotante\n");
 	}else{printf("Es invalida\n");}
-	
+*/
 
 	system("PAUSE");
 }
 
+void validarCadena(char linea[]){
+	int cout=0;
+	int i, tam = strlen(linea);
+	
+	//Saca la primera palabra
+	for(i = 0; i<tam; i++){
+		if(linea[i] != ' '){
+			aux[cout] = linea[i];
+			cout ++;
+		}else{
+			break;
+			}
+	}
+	int empieza;
+    if(esInstancia(aux)){empieza = inst;}
+    if(esValida(aux) && esReservada(aux) == false){empieza = var;}
+    
+    int j;
+	vaciar();
+	cout = 0;
+	
+    switch(empieza){
+		case inst:
+			linea[tam] = '_';
+            for(j = i+1; j<=tam; j++){
+				if(linea[j] != ';'){
+					aux[cout] = linea[j];
+					cout ++;
+				}else{break;}
+			}
+			if(esValida(aux) && esReservada(aux) == false){
+				printf("Sintaxis Correcta\n");
+			}else{printf("Sintaxis Incorrecta\n");}
+			break;
+
+		case var:
+			printf("Esto es una asignacion de variable\n");
+			break;
+	}
+	
+}
+
+void vaciar(){
+	int n, i = strlen(aux);
+	for(n=0; n<i;n++){
+		aux[n] = '\0';
+	}
+}
 
 //Valida si una cadena es validad
 bool esValida(char cadena[]){
@@ -109,6 +120,18 @@ bool esReservada(char cadena[]){
 	int i, tam = sizeof(reservada)/sizeof(char*);
 	for(i=0; i<tam && esRes == false; i++){
 		if(strcmp(cadena, reservada[i]) == 0){
+			esRes = true;
+		}
+	}
+	return esRes;
+}
+
+//Valida si es instancia
+bool esInstancia(char cadena[]){
+	bool esRes = false;
+	int i, tam = sizeof(instancia)/sizeof(char*);
+	for(i=0; i<tam && esRes == false; i++){
+		if(strcmp(cadena, instancia[i]) == 0){
 			esRes = true;
 		}
 	}
