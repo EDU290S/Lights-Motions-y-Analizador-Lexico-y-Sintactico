@@ -6,26 +6,37 @@
 //TABLA DE SIMBOLOS
 char *reservada[] = {"int", "float", "String", "led", "waterjet", "if", "else", "while", "for", "range", "funtion", "return", "writeLn", "scribe", "off", "on", "intensity", "useColor", "declareColor", "pressure", "angle", "delay", "id"};
 
+bool sintaxisCorrecta(char[]);
+
 bool esValida(char[]);
 bool esReservada(char[]);
 bool esEntero(char[]);
 bool esFlotante(char[]);
-bool sintaxisCorrecta(char[]);
+bool esValor(char[]);
+bool esAsignador(char[]);
 
 void vaciar(char[]);
-void obtPalabra(char[], char[], int);
+void obtPalabra(char[], int);
 int cuentaPalabra(char[]);
 
+bool sintaxisInstancia(char[]);
+bool sintaxisAsignacion(char[], int);
+
 enum type {var, funcion, para, delay, instancia, si, escribir, obtener, retorno, qe};
+char tempPalabra[50];
 
 char aux[100];
 
 //INICIO FUNCION MAIN
 int main(){
 
-	char linea[200] = "  elias.asi si me gusta a yo";
-	sintaxisCorrecta(linea);
-	printf("%d\n", cuentaPalabra(linea));
+	char linea[200] = "x pressure er";
+	
+	if(sintaxisCorrecta(linea) == true){
+		printf("\n\nexito \n\n");
+	}else{printf("\n\nfail \n\n");}
+	
+	
 	system("PAUSE");
 }
 //FIN FUNCION MAIN
@@ -33,6 +44,7 @@ int main(){
 //INICIO FUNCION PRINCIPAL PARA VALIDAR SI LA SINTAXIS DE UNA LINEA ES CORRECTA
 bool sintaxisCorrecta(char linea[]){
 	bool esCorrecta = false;
+	
 	char aux[200] = "";
 	int q0;
 	//inicio obtiene primer palabra
@@ -40,7 +52,7 @@ bool sintaxisCorrecta(char linea[]){
 	while(i<tam){
 		while(i<tam && linea[i] == ' '){i++;}
 		if(i<tam){cout++;}
-		while(i<tam && linea[i] != ' ' &&  linea[i] != '.' && linea[i] != '('){
+		while(i<tam && linea[i] != ' '){
 			aux[a] = linea[i];
 			i++;
 			a++;
@@ -51,6 +63,8 @@ bool sintaxisCorrecta(char linea[]){
 	}
 	//fin obtiene primer palabra
 	printf("Primera Palabra: .%s.\n", aux);
+	
+	
 	 //inicia validacion de typo de linea a evaluar
 	if(esValida(aux) == true && esReservada(aux)==false){q0 = var;}
 	if(esValida(aux)){
@@ -83,6 +97,7 @@ bool sintaxisCorrecta(char linea[]){
 	switch(q0){
 		case var:
             printf("SINTAXIS VARIABLE\n");
+			esCorrecta = sintaxisAsignacion(linea, strlen(aux));
 			break;
 		case funcion:
             printf("SINTAXIS FUNCION\n");
@@ -95,6 +110,7 @@ bool sintaxisCorrecta(char linea[]){
             break;
 		case instancia:
             printf("SINTAXIS DEFINICION\n");
+            esCorrecta = sintaxisInstancia(linea);
             break;
 		case si:
             printf("SINTAXIS IF O WHILE\n");
@@ -234,22 +250,22 @@ bool esEntero(char cadena[]){
 }
 
 //obtiene la palabra n de una cadena linea
-void obtPalabra(char linea[], char aux[], int n){
-    char aux2[100];
-	vaciar(aux);
+void obtPalabra(char linea[], int n){
+    char aux[100] = "";
+	vaciar(tempPalabra);
 	int i = 0, a = 0, cout = 0, tam = strlen(linea);
 	while(i<tam && cout < n){
         a = 0;
-		vaciar(aux2);
+		vaciar(aux);
 		while(i<tam && linea[i] == ' '){i++;}
 		if(i<tam){cout++;}
 		while(i<tam && linea[i] != ' '){
-			aux2[a] = linea[i];
+			aux[a] = linea[i];
 			i++;
 			a++;
 		}
 	}
-	strcpy(aux, aux2);
+	strcpy(tempPalabra, aux);
 }
 
 //Cuenta las palabra en una cadena
@@ -262,4 +278,60 @@ int cuentaPalabra(char cadena[]){
 	}
 	
 	return cout;
+}
+
+//determina si es valor valido
+bool esValor(char valor[]){
+	bool esV = false;
+    if((esValida(valor) == true && esReservada(valor) == false) || esEntero(valor) || esFlotante(valor)){
+		esV = true;
+	}
+	return esV;
+}
+
+//determina es asignador
+bool esAsignador(char as[]){
+    bool esA = false;
+    if(strcmp(as, "=") == 0 ||
+        strcmp(as, "intensity") == 0 ||
+        strcmp(as, "pressure") == 0 ||
+        strcmp(as, "angle") == 0 ||
+        strcmp(as, "id") == 0
+	){
+		esA = true;
+	}
+	return esA;
+}
+
+//INICION METODOS PRUEBA DE SINTAXIS
+//definicion de variables
+bool sintaxisInstancia(char linea[]){
+	bool sintaxis = false;
+	int tam = cuentaPalabra(linea);
+	if(tam == 2){
+		obtPalabra(linea, 2);
+		if(esValida(tempPalabra) == true && esReservada(tempPalabra) == false){
+			sintaxis = true;
+		}
+	}
+	return sintaxis;
+}
+
+//asignacion a variables
+bool sintaxisAsignacion(char linea[], int pos){
+	bool sintaxis = false;
+	if(linea[pos] == ' '){
+		int tam = cuentaPalabra(linea);
+		if(tam == 3){
+			obtPalabra(linea, 2);
+			if(esAsignador(tempPalabra)){
+				obtPalabra(linea, 3);
+				if(esValor(tempPalabra)){
+					sintaxis = true;
+				}
+			}
+		}
+	}
+	
+	return sintaxis;
 }
