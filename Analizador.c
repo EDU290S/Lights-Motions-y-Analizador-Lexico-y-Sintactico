@@ -20,9 +20,11 @@ void obtPalabra(char[], int);
 int cuentaPalabra(char[]);
 
 bool sintaxisInstancia(char[]);
-bool sintaxisAsignacion(char[], int);
+bool sintaxisAsignacion(char[]);
+bool sintaxisFor(char[]);
 
 enum type {var, funcion, para, delay, instancia, si, escribir, obtener, retorno, qe};
+
 char tempPalabra[50];
 
 char aux[100];
@@ -30,7 +32,7 @@ char aux[100];
 //INICIO FUNCION MAIN
 int main(){
 
-	char linea[200] = "x pressure er";
+	char linea[200] = "ehuSD = 23";
 	
 	if(sintaxisCorrecta(linea) == true){
 		printf("\n\nexito \n\n");
@@ -97,7 +99,7 @@ bool sintaxisCorrecta(char linea[]){
 	switch(q0){
 		case var:
             printf("SINTAXIS VARIABLE\n");
-			esCorrecta = sintaxisAsignacion(linea, strlen(aux));
+			esCorrecta = sintaxisAsignacion(linea);
 			break;
 		case funcion:
             printf("SINTAXIS FUNCION\n");
@@ -318,17 +320,15 @@ bool sintaxisInstancia(char linea[]){
 }
 
 //asignacion a variables
-bool sintaxisAsignacion(char linea[], int pos){
+bool sintaxisAsignacion(char linea[]){
 	bool sintaxis = false;
-	if(linea[pos] == ' '){
-		int tam = cuentaPalabra(linea);
-		if(tam == 3){
-			obtPalabra(linea, 2);
-			if(esAsignador(tempPalabra)){
-				obtPalabra(linea, 3);
-				if(esValor(tempPalabra)){
-					sintaxis = true;
-				}
+	int tam = cuentaPalabra(linea);
+	if(tam == 3){
+		obtPalabra(linea, 2);
+		if(esAsignador(tempPalabra)){
+			obtPalabra(linea, 3);
+			if(esValor(tempPalabra)){
+				sintaxis = true;
 			}
 		}
 	}
