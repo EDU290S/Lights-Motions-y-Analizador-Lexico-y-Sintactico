@@ -22,6 +22,7 @@ int cuentaPalabra(char[]);
 bool sintaxisInstancia(char[]);
 bool sintaxisAsignacion(char[]);
 bool sintaxisFor(char[]);
+bool sintaxisFuncion(char[]);
 
 enum type {var, funcion, para, delay, instancia, si, escribir, obtener, retorno, qe};
 
@@ -32,7 +33,7 @@ char aux[100];
 //INICIO FUNCION MAIN
 int main(){
 
-	char linea[200] = "ehuSD = 23";
+	char linea[200] = "funtion int hola int waterjet return 0";
 	
 	if(sintaxisCorrecta(linea) == true){
 		printf("\n\nexito \n\n");
@@ -103,7 +104,8 @@ bool sintaxisCorrecta(char linea[]){
 			break;
 		case funcion:
             printf("SINTAXIS FUNCION\n");
-            break;
+            esCorrecta = sintaxisFuncion(linea);
+            break;   
 		case para:
             printf("SINTAXIS FOR\n");
             break;
@@ -334,4 +336,52 @@ bool sintaxisAsignacion(char linea[]){
 	}
 	
 	return sintaxis;
+}
+
+//sintaxis de funcion
+bool sintaxisFuncion(char linea[]){
+		bool sintaxis = false;
+		int tam = cuentaPalabra(linea);
+				if(tam == 7){
+					obtPalabra(linea, 2);
+						if(esReservada(tempPalabra)){
+							obtPalabra(linea, 3);
+							if(esValor(tempPalabra)){
+								obtPalabra(linea, 4);
+								if(esReservada(tempPalabra)){
+									obtPalabra(linea, 5);
+									if(esReservada(tempPalabra)){
+										obtPalabra(linea, 6);
+										if(esReservada(tempPalabra)){
+											obtPalabra(linea, 7);
+											if(esValor(tempPalabra)){
+											sintaxis = true;
+											}	
+											}	
+										}	
+									}	
+								}	
+							}	
+					
+				}else if(tam == 6){
+					obtPalabra(linea, 1);
+					if(esReservada(tempPalabra)){
+						obtPalabra(linea, 2);
+						if(esReservada(tempPalabra)){
+							obtPalabra(linea, 3);
+							if(esAsignador(tempPalabra)){
+								obtPalabra(linea, 4);
+								if(esReservada(tempPalabra)){
+									obtPalabra(linea, 5);
+									if(esReservada(tempPalabra)){
+										obtPalabra(linea, 6);
+										if(esValor(tempPalabra)){
+										sintaxis = true;}	
+										}	
+									}	
+								}	
+							}	
+						}	
+					}	
+			return sintaxis;				
 }
