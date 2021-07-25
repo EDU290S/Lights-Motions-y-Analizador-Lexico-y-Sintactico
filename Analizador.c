@@ -386,8 +386,30 @@ bool sintaxisFuncion(char linea[]){
 			return sintaxis;				
 }
 
-/* 
+// Bucle for
+bool sintaxisFor(char[]);
+bool sintaxis = false;
+	int tam = cuentaPalabra(linea);
+	for(int i=0;cuentaPalabra<=6;i++){
+		if(tam == 6){
+		    obtPalabra(linea, 2);
+		    if(esReservada(tempPalabra)){
+		    obtPalabra(linea, 3);
+		    if(esValor(tempPalabra)){
+            obtPalabra(linea, 4);
+			if(esReservada(tempPalabra)){
+			obtPalabra(linea, 5);
+		    if(esReservada(tempPalabra)){
+		    obtPalabra(linea, 6);
+			if(esValor(tempPalabra)){
+			sintaxis = true;
+			}
+		  }
+	    } 
+      }
+    }
+  }
+  return sintaxis;
+}
 
-Ciclo for
 
-*/
