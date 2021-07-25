@@ -385,3 +385,39 @@ bool sintaxisFuncion(char linea[]){
 					}	
 			return sintaxis;				
 }
+
+/* 
+
+Ciclo for (sólo es un borrador)
+
+int validar_ num(char numero [6]) // Inicia Función
+int i=0, sw=0, j;
+j=strlen(numero);
+
+while (i<j&& sw==0){
+	if(isdigit(numero[i])!0){
+	i++;
+	}
+	else{
+		sw=1;
+	}
+}
+
+return sw;
+
+int validar_ num(char numero [6]) // Inicia Función
+int i=0, sw=0, j;
+j=strlen(cadena);
+
+while (i<j&& sw==0){
+	if(isalpha(cadena[i])!0){
+	i++;
+	}
+	else{
+		sw=1;
+	}
+}
+
+return sw;
+
+*/
