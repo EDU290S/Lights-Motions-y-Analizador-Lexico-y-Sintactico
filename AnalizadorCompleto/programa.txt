@@ -1,0 +1,29 @@
+
+waterjet fuente
+led luz
+int potencia
+int lumenes
+float angulo
+
+fuente.id = 67382
+luz.id = 23546
+
+lumenes = 100
+potencia = 300
+
+luz.intensity = lumenes
+luz.angle = 34
+
+fuente.pressure = potencia
+fuente.angle = angulo
+
+luz.useColor = #rojo
+
+function rojos (led luz)
+	if (angulo != 45)
+		h.useColor = #0000F
+	FIN ciclo
+	return 34.8
+FIN function
+
+angulo = rojos(luz)
