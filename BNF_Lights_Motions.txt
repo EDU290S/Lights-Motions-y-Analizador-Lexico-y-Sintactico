@@ -1,4 +1,4 @@
----------------------------------BNF ORDENADO----------------------------------------------------
+-------------------------------- BNF ORDENADO --------------------------------
 
 <Lenguaje> ::= <Bloque codigo> | <Bloque codigo><Lenguaje>
 
@@ -133,5 +133,3 @@
 <Retorno> ::= <Variable> | <Numero> | <Texto> | <Cadena> | <Aritmetica>
 
 <Definir Parametros> :: <Definir variable> | <Definir variable>, <Definir Parametros>
-
-
